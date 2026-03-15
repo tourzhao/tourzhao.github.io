@@ -1,0 +1,8 @@
+.DS_Store
+*.swp
+*.swo
+.claude/
+index_bak*.html
+Ads.docx
+SH.jpg
+Seminars/

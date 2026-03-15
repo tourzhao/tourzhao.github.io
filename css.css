@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Actor';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Actor Regular'), local('Actor-Regular'), url(https://fonts.gstatic.com/s/actor/v6/sK5V_tJbsgOm4Y29j9x9MqCWcynf_cDxXwCLxiixG1c.woff2) format('woff2'), url(https://fonts.gstatic.com/s/actor/v6/SqA9OdmswJX8b4TrqlN76KCWcynf_cDxXwCLxiixG1c.woff) format('woff');
+}
