@@ -60,6 +60,21 @@
 .toggle-btn.open .arrow {
 	transform: rotate(180deg);
 }
+/* Group/alumni entries: continuation lines align with the text after "--" */
+.member {
+	display: flex;
+	align-items: baseline;
+}
+.member-name {
+	flex: none;
+}
+.member-detail {
+	flex: 1;
+	min-width: 0;
+}
+@media (max-width: 700px) {
+	.member { display: block; }
+}
 </style>
 <script>
 var STATIC_BASE = 'https://cdn1.editmysite.com/';
@@ -799,100 +814,74 @@ var IS_ARCHIVE = 1;
 
 <div class="paragraph" style="text-align:left;"><br><font><font size="4"><strong><font color="#808080">Alchemists in My Group</font> </strong></font></font>
 
-    <br><ul><li><a href="https://yxli2123.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yixiao Li</font></strong></a> -- Ph.D. Candidate, ISyE, Georgia Tech (2022.8--Present)
-    <br>Current Position: Research Scientist, Apple
+    <br><ul><li><span class="member"><span class="member-name"><a href="https://yxli2123.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yixiao Li</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Candidate, ISyE, Georgia Tech (2022.8--Present)<br>Current Position: Research Scientist, Apple</span></span>
 
-    <br></li><li><a href="https://scholar.google.com/citations?user=FRegzp4AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zhenghao Xu</font></strong></a> -- Ph.D. Candidate, ISyE, Georgia Tech (2022.8--Present, Coadvised by Molei Tao)
-    <br>Current Position: Research Scientist, NVIDIA
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=FRegzp4AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zhenghao Xu</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Candidate, ISyE, Georgia Tech (2022.8--Present, Coadvised by Molei Tao)<br>Current Position: Research Scientist, NVIDIA</span></span>
 
-   	<br></li><li><a href="https://scholar.google.com/citations?user=ZdfbAOMAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zixuan Zhang</font></strong></a> -- Ph.D. Candidate, ISyE, Georgia Tech (2022.8--Present)
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=ZdfbAOMAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zixuan Zhang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Candidate, ISyE, Georgia Tech (2022.8--Present)</span></span>
 
-    <br></li><li><a href="https://ilgeehong.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Ilgee Hong</font></strong></a> -- Ph.D. Student, ISyE, Georgia Tech (2023.8--Present)
+    </li><li><span class="member"><span class="member-name"><a href="https://ilgeehong.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Ilgee Hong</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Student, ISyE, Georgia Tech (2023.8--Present)</span></span>
 
-    <br></li><li><a href="https://zichongli5.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zichong Li</font></strong></a> -- Ph.D. Student, ISyE, Georgia Tech (2023.8--Present)
-    <br><span style="margin-left: 105px;">Former Visiting Student, Georgia Tech (2019.7--2019.9)</span>
+    </li><li><span class="member"><span class="member-name"><a href="https://zichongli5.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zichong Li</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Student, ISyE, Georgia Tech (2023.8--Present)<br>Former Visiting Student, Georgia Tech (2019.7--2019.9)</span></span>
 
-    <br></li><li><a href="https://www.isye.gatech.edu/users/liming-liu" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Liming Liu</font></strong></a> -- Ph.D. Student, ISyE, Georgia Tech (2024.8--Present)
+    </li><li><span class="member"><span class="member-name"><a href="https://www.isye.gatech.edu/users/liming-liu" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Liming Liu</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Student, ISyE, Georgia Tech (2024.8--Present)</span></span>
+
+    </li><li><span class="member"><span class="member-name"><strong><font color="#2a2a2a">Jianzhe Wei</font></strong>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. Student, ISyE, Georgia Tech (2025.8--Present)</span></span>
 
     </li></ul>
 </div>
 
 <div class="paragraph" style="text-align:left;"><br><font><font size="4"><strong><font color="#808080">FLASH Alumni</font> </strong></font></font>
 
-    <br><ul><li><span class="txt-normal"><a href="https://abukharin3.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Alexander Bukharin</font></strong></a>  -- Ph.D. in Machine Learning, Georgia Tech (2021.8--2025.4)
-    <br>Current Position: Research Scientist, NVIDIA
+    <br><ul><li><span class="txt-normal"><span class="member"><span class="member-name"><a href="https://abukharin3.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Alexander Bukharin</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2021.8--2025.4)<br>Current Position: Research Scientist, NVIDIA</span></span>
 
-	<br></li><li><a href="https://scholar.google.com/citations?user=7YM-faYAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Qingru Zhang</font></strong></a> -- Ph.D. in Machine Learning, Georgia Tech (2021.8--2025.4)
-	<br>Current Position: Member of Technical Staff, Microsoft CoreAI
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=7YM-faYAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Qingru Zhang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2021.8--2025.4)<br>Current Position: Member of Technical Staff, Microsoft CoreAI</span></span>
 
-    <br></li><li><a href="https://gzliyan113.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yan Li</font></strong></a>  -- Ph.D. in Operations Research, Georgia Tech (2018.12--2024.7)
-    <br>Current Position: Assistant Professor of ISE, Texas A&amp;M University
+    </li><li><span class="member"><span class="member-name"><a href="https://gzliyan113.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yan Li</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Operations Research, Georgia Tech (2018.12--2024.7, Coadvised by Guanghui Lan)<br>Current Position: Assistant Professor of ISE, Texas A&amp;M University</span></span>
 
-    <br></li><li><a href="https://cliang1453.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Chen Liang</font></strong></a> -- Ph.D. in Machine Learning, Georgia Tech (2018.8--2023.11)
-    <br>Current Position: Member of Technical Staff, Microsoft CoreAI
+    </li><li><span class="member"><span class="member-name"><a href="https://cliang1453.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Chen Liang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2020.8--2023.11)<br>M.S. in Computer Science, Georgia Tech (2018.8--2020.8)<br>Current Position: Member of Technical Staff, Microsoft CoreAI</span></span>
 
-    <br></li><li><a href="https://simiaozuo.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Simiao Zuo</font></strong></a> -- Ph.D. in Machine Learning, Georgia Tech (2019.8--2023.4)
-    <br>Current Position: Senior Research Scientist, Microsoft
+    </li><li><span class="member"><span class="member-name"><a href="https://simiaozuo.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Simiao Zuo</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2019.8--2023.4)<br>Current Position: Senior Research Scientist, Microsoft</span></span>
 
-    <br></li><li><a href="https://minshuochen.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Minshuo Chen</font></strong></a> -- Ph.D. in Machine Learning, Georgia Tech (2017.6--2022.7)
-    <br>Current Position: Assistant Professor of IEMS, Northwestern University
+    </li><li><span class="member"><span class="member-name"><a href="https://minshuochen.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Minshuo Chen</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2017.6--2022.7, Coadvised by Wenjing Liao)<br>Current Position: Assistant Professor of IEMS, Northwestern University</span></span>
 
-    <br></li><li><a href="https://scholar.google.com/citations?user=RdSlQeEAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Siawpeng Er</font></strong></a> -- Ph.D. in Bioinformatics, Georgia Tech (2019.8--2022.7)
-    <br>Current Position: Lead Data Scientist, Home Depot
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=RdSlQeEAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Siawpeng Er</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Bioinformatics, Georgia Tech (2019.8--2022.7)<br>Current Position: Lead Data Scientist, Home Depot</span></span>
 
-    <br></li><li><a href="https://sites.google.com/view/jiachen-yang/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Jiachen Yang</font></strong></a> -- Ph.D. in Machine Learning, Georgia Tech (2020.01--2021.12)
-    <br>Current Position: Co-Founder and CTO, Simular.ai
+    </li><li><span class="member"><span class="member-name"><a href="https://sites.google.com/view/jiachen-yang/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Jiachen Yang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2020.01--2021.12, Coadvised by Hongyuan Zha)<br>Current Position: Co-Founder and CTO, Simular.ai</span></span>
 
-    <br></li><li><a href="https://sites.google.com/view/yujia" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yujia Xie</font></strong></a> -- Ph.D. in Computational Science and Engineering, Georgia Tech (2018.12--2021.8)
-    <br>Current Position: Member of Technical Staff, Microsoft CoreAI
+    </li><li><span class="member"><span class="member-name"><a href="https://sites.google.com/view/yujia" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yujia Xie</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Computational Science and Engineering, Georgia Tech (2018.12--2021.8, Coadvised by Hongyuan Zha)<br>Current Position: Member of Technical Staff, Microsoft CoreAI</span></span>
 
-    <br></li><li><a href="https://sites.google.com/view/zhehuichen/home" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zhehui Chen</font></strong></a> -- Ph.D. in Industrial Engineering, Georgia Tech (2016.8--2021.4)
-    <br>Current Position: Senior Research Scientist, Google DeepMind
+    </li><li><span class="member"><span class="member-name"><a href="https://sites.google.com/view/zhehuichen/home" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Zhehui Chen</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Industrial Engineering, Georgia Tech (2016.8--2021.4, Coadvised by Jeff Wu)<br>Current Position: Senior Research Scientist, Google DeepMind</span></span>
 
-    <br></li><li><a href="https://hmjianggatech.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Haoming Jiang</font></strong></a> -- Ph.D. in Machine Learning, Georgia Tech (2017.8--2021.4)
-    <br>Current Position: Member of Technical Staff, OpenAI
+    </li><li><span class="member"><span class="member-name"><a href="https://hmjianggatech.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Haoming Jiang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Machine Learning, Georgia Tech (2017.8--2021.4)<br>Current Position: Member of Technical Staff, OpenAI</span></span>
 
-    <br></li><li><a href="https://sites.google.com/view/tianyiliu/home" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Tianyi Liu</font></strong></a> -- Ph.D. in Operations Research, Georgia Tech (2017.9--2021.4, Coadvised by Enlu Zhou)
-   	<br>Current Position: Senior Staff Research Scientist, Meta
+    </li><li><span class="member"><span class="member-name"><a href="https://sites.google.com/view/tianyiliu/home" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Tianyi Liu</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Ph.D. in Operations Research, Georgia Tech (2017.9--2021.4, Coadvised by Enlu Zhou)<br>Current Position: Senior Staff Research Scientist, Meta</span></span>
 
-    <br></li><li><a href="https://li-xingguo.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Xingguo Li</font></strong></a> -- Visiting Student, Georgia Tech (2017.3--2018.6)
-    <br>Current Position: Quantitative Researcher, Radix Trading LLC
+    </li><li><span class="member"><span class="member-name"><a href="https://li-xingguo.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Xingguo Li</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2017.3--2018.6)<br>Current Position: Quantitative Researcher, Radix Trading LLC</span></span>
 
-    <br></li><li><a href="http://drlinyang.net" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Lin Yang</font></strong></a> -- Visiting Student, Georgia Tech (2017.3--2017.6)
-    <br>Current Position: Associate Professor of ECE, University of California Los Angeles
+    </li><li><span class="member"><span class="member-name"><a href="http://drlinyang.net" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Lin Yang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2017.3--2017.6)<br>Current Position: Associate Professor of ECE, University of California Los Angeles</span></span>
 
-    <br></li><li><a href="https://www.linkedin.com/in/yuheng-cai-788928222/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yuheng Cai</font></strong></a> -- Graduate Researcher, Georgia Tech (2024.7--2025.4)
-    <br>Current Position: Software Development Engineer, Google
+    </li><li><span class="member"><span class="member-name"><a href="https://www.linkedin.com/in/yuheng-cai-788928222/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yuheng Cai</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Graduate Researcher, Georgia Tech (2024.7--2025.4)<br>Current Position: Software Development Engineer, Google</span></span>
 
-    <br></li><li><a href="https://scholar.google.com/citations?user=7JwZCwEAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yuezhou Hu</font></strong></a> -- Visiting Student, Georgia Tech (2024.7--2024.9)
-    <br>Current Position: Ph.D. Student, University of California, Berkeley
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=7JwZCwEAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yuezhou Hu</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2024.7--2024.9)<br>Current Position: Ph.D. Student, University of California, Berkeley</span></span>
 
-    <br></li><li><a href="https://www.linkedin.com/in/%E4%BD%B3%E9%91%AB-%E9%83%AD-8470a3274/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Jiaxin Guo</font></strong></a> -- Visiting Student, Georgia Tech (2024.7--2024.9)
-    <br>Current Position: Undergraduate Student, Tsinghua University
+    </li><li><span class="member"><span class="member-name"><a href="https://www.linkedin.com/in/%E4%BD%B3%E9%91%AB-%E9%83%AD-8470a3274/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Jiaxin Guo</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2024.7--2024.9)<br>Current Position: Founding Member, Stealth Startup</span></span>
 
-    <br></li><li><a href="https://yifan1130.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yifan Yu</font></strong></a> -- Undergraduate Student Researcher, Georgia Tech (2021.8--2024.5)
-    <br>Current Position: Ph.D. Student, University of Illinois Urbana-Champaign
+    </li><li><span class="member"><span class="member-name"><a href="https://yifan1130.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yifan Yu</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Undergraduate Student Researcher, Georgia Tech (2021.8--2024.5)<br>Current Position: Ph.D. Student, University of Illinois Urbana-Champaign</span></span>
 
-	<br></li><li><a href="https://www.linkedin.com/in/ethan-wang-71967517b/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Ethan Wang</font></strong></a> -- Undergraduate Student Researcher, Georgia Tech (2020.01--2021.11, Coadvised by Hongyuan Zha)
-	<br>Current Position: Performance Engineer, Anthropic
+    </li><li><span class="member"><span class="member-name"><a href="https://www.linkedin.com/in/ethan-wang-71967517b/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Ethan Wang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Undergraduate Student Researcher, Georgia Tech (2020.01--2021.11, Coadvised by Hongyuan Zha)<br>Current Position: Performance Engineer, Anthropic</span></span>
 
-	<br></li><li><a href="https://scholar.google.com/citations?user=CakBH2gAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Jie Lyu</font></strong></a> -- Undergraduate Student Researcher, Georgia Tech (2020.1--2020.5)
-    <br>Current Position: Senior Machine Learning Engineer, Meta
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=CakBH2gAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Jie Lyu</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Undergraduate Student Researcher, Georgia Tech (2020.1--2020.5)<br>Current Position: Senior Machine Learning Engineer, Meta</span></span>
 
-    <br></li><li><a href="https://scholar.google.com/citations?user=mPqJWg8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Xinyu Fei</font></strong></a> -- Visiting Student, Georgia Tech (2018.7--2018.9)
-    <br>Current Position: Research Scientist, Amazon
+    </li><li><span class="member"><span class="member-name"><a href="https://hackyhuang.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Kaixuan Huang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2019.7--2019.9)<br>Current Position: Research Scientist, ByteDance</span></span>
 
-    <br></li><li><a href="https://mozhou7.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Mo Zhou</font></strong></a> -- Visiting Student, Georgia Tech (2018.7--2018.9)
-    <br>Current Position: Postdoctoral Fellow, University of Washington
+    </li><li><span class="member"><span class="member-name"><a href="https://shenqianli.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Qianli Shen</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2019.7--2019.9)<br>Current Position: Research Scientist, Alibaba Tongyi Lab</span></span>
 
-    <br></li><li><a href="https://wyzjack.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yizhou Wang</font></strong></a> -- Visiting Student, Georgia Tech (2019.1--2019.5)
-    <br>Current Position: Research Scientist, Adobe
+    </li><li><span class="member"><span class="member-name"><a href="https://wyzjack.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Yizhou Wang</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2019.1--2019.5)<br>Current Position: Research Scientist, Adobe</span></span>
 
-    <br></li><li><a href="https://hackyhuang.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Kaixuan Huang</font></strong></a> -- Visiting Student, Georgia Tech (2019.7--2019.9)
-    <br>Current Position: Research Scientist, ByteDance
+    </li><li><span class="member"><span class="member-name"><a href="https://scholar.google.com/citations?user=mPqJWg8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Xinyu Fei</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2018.7--2018.9)<br>Current Position: Research Scientist, Amazon</span></span>
 
-    <br></li><li><a href="https://shenqianli.github.io" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Qianli Shen</font></strong></a> -- Visiting Student, Georgia Tech (2019.7--2019.9)
-    <br>Current Position: Research Scientist, Alibaba Tongyi Lab
+    </li><li><span class="member"><span class="member-name"><a href="https://mozhou7.github.io/" target="_blank" rel="noopener noreferrer"><strong><font color="#2a2a2a">Mo Zhou</font></strong></a>&nbsp;--&nbsp;</span><span class="member-detail">Visiting Student, Georgia Tech (2018.7--2018.9)<br>Current Position: Postdoctoral Fellow, University of Washington</span></span>
 
 </ul>
 </div>
