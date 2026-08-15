@@ -75,6 +75,51 @@
 @media (max-width: 700px) {
 	.member { display: block; }
 }
+/* Pac-Man intro: the banner image (.wsite-header) starts tiled with pellets,
+   Pac-Man eats them row by row and each eaten pellet uncovers that tile of the
+   image. Built and removed by the inline script at the top of <body>; the
+   overlay is sized/placed from the image's own box at run time.
+   #pac-man is a sibling, not a child, so it is not clipped when it runs off. */
+#pac-overlay {
+	position: absolute;
+	z-index: 2147483000;
+	overflow: hidden;
+	background: transparent;
+}
+#pac-overlay.pac-done,
+#pac-man.pac-done {
+	opacity: 0;
+	transition: opacity 300ms ease;
+	pointer-events: none;
+}
+.pac-tile {
+	position: absolute;
+	background: #000;
+}
+.pac-tile::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 12px;
+	height: 12px;
+	margin: -6px 0 0 -6px;
+	border-radius: 50%;
+	background: #ffe3ab;
+	box-shadow: 0 0 7px rgba(255, 214, 150, .6);
+}
+.pac-tile.pac-eaten {
+	opacity: 0;
+	transition: opacity 200ms linear;
+}
+#pac-man {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2147483001;
+	pointer-events: none;
+	will-change: transform;
+}
 </style>
 <script>
 var STATIC_BASE = 'https://cdn1.editmysite.com/';
@@ -125,6 +170,277 @@ var IS_ARCHIVE = 1;
 </script>
 </head>
 <body class="wsite-theme-light landing-page wsite-page-index">
+<script>
+/* Pac-Man intro reveal over the banner image. The pellets tile
+   pictures/alchemist_2.png (rendered by .wsite-header) and every pellet Pac-Man
+   eats uncovers that tile of the image; once the grid is clear he runs off
+   screen. Each pellet fires a short synthesized chomp.
+
+   On sound: browsers keep an AudioContext suspended until the visitor has
+   interacted with the page, so a cold first load is silent by design -- there
+   is no way around that policy. Any click, tap or key press unlocks it (that
+   is what the gesture hooks below are for), and clicking the banner replays the
+   whole run, which is the reliable way to hear it.
+
+   Skipped for prefers-reduced-motion and for ?nopac=1; Escape ends a run early.
+   Nothing here is required to render the page -- with JS off, or if the banner
+   is absent, the site loads exactly as before. */
+(function () {
+	var reduce = false;
+	try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+	if (reduce || /[?&]nopac(?:[=&]|$)/.test(location.search)) return;
+
+	/* Motion is fixed-step, arcade style: the clock ticks at FPS and every tick
+	   advances exactly one step. A step is a whole fraction of the pellet
+	   spacing, so each pellet takes STEPS_PER_PELLET ticks and the chomp lands
+	   on an exact beat (30 / 6 = 5 per second). Speed follows from the two:
+	   FPS / STEPS_PER_PELLET * pellet spacing, about 390 px/s on desktop.
+	   30 divides both 60Hz and 120Hz displays, so ticks never land unevenly. */
+	var FPS = 30;
+	var STEPS_PER_PELLET = 6;
+	var IDEAL = 78;    /* target pellet spacing in px */
+	var FADE = 300;
+	var tries = 0, running = false;
+
+	/* --- chomp sound ---------------------------------------------------------
+	   One context for the page's lifetime. Kept at this scope so a gesture can
+	   unlock it before, during or between runs. Throttled on performance.now(),
+	   not actx.currentTime: the audio clock lags while the context spins up and
+	   would silently drop most of the chomps. */
+	var actx = null, lastBeep = -1e9, flip = 0, audioBad = false;
+
+	function ensureAudio() {
+		if (audioBad) return null;
+		try {
+			if (!actx) {
+				var AC = window.AudioContext || window.webkitAudioContext;
+				if (!AC) { audioBad = true; return null; }
+				actx = new AC();
+			}
+			if (actx.state === 'suspended' && actx.resume) actx.resume();
+			return actx;
+		} catch (e) { audioBad = true; return null; }
+	}
+
+	function beep() {
+		var c = ensureAudio();
+		if (!c || c.state !== 'running') return;
+		var t = (window.performance && performance.now) ? performance.now() : +new Date();
+		if (t - lastBeep < 40) return;
+		lastBeep = t;
+		try {
+			var now = c.currentTime;
+			var o = c.createOscillator(), gn = c.createGain();
+			var up = (flip = 1 - flip) === 1;   /* alternate for the "wa-ka" */
+			o.type = 'square';
+			o.frequency.setValueAtTime(up ? 200 : 540, now);
+			o.frequency.linearRampToValueAtTime(up ? 540 : 200, now + 0.05);
+			gn.gain.setValueAtTime(0.0001, now);
+			gn.gain.exponentialRampToValueAtTime(0.05, now + 0.008);
+			gn.gain.exponentialRampToValueAtTime(0.0001, now + 0.065);
+			o.connect(gn); gn.connect(c.destination);
+			o.start(now); o.stop(now + 0.075);
+		} catch (e) { audioBad = true; }
+	}
+
+	/* A gesture anywhere unlocks audio; it deliberately does not skip the run. */
+	['pointerdown', 'keydown', 'touchstart'].forEach(function (n) {
+		window.addEventListener(n, ensureAudio, { passive: true });
+	});
+	/* ---------------------------------------------------------------------- */
+
+	function banner() { return document.querySelector('.wsite-header'); }
+
+	/* The banner is parsed just after this script, so wait for its box. */
+	function boot() {
+		var el = banner();
+		var r = el && el.getBoundingClientRect();
+		if (!r || r.width < 60 || r.height < 60) {
+			if (++tries < 180) requestAnimationFrame(boot);
+			return;
+		}
+		el.style.cursor = 'pointer';
+		el.title = 'Click to replay (with sound)';
+		el.addEventListener('click', function () {
+			var b = banner();
+			if (!running && b) build(b.getBoundingClientRect());
+		});
+		build(r);
+	}
+
+	function build(r) {
+		running = true;
+		var W0 = window.innerWidth, H0 = window.innerHeight;
+		var left = r.left + (window.pageXOffset || 0);
+		var top = r.top + (window.pageYOffset || 0);
+		var w = r.width, h = r.height;
+
+		/* Cells divide the image exactly, so no pellet is clipped at an edge. */
+		var cols = Math.max(3, Math.round(w / IDEAL));
+		var rows = Math.max(3, Math.round(h / IDEAL));
+		var cw = w / cols, ch = h / rows;
+		var size = Math.min(112, Math.max(40, Math.round(Math.min(cw, ch) * 1.15)));
+
+		var ov = document.createElement('div');
+		ov.id = 'pac-overlay';
+		ov.setAttribute('aria-hidden', 'true');
+		ov.style.cssText = 'left:' + left + 'px;top:' + top + 'px;width:' + w + 'px;height:' + h + 'px';
+
+		var grid = [], frag = document.createDocumentFragment();
+		for (var i = 0; i < rows; i++) {
+			var row = [];
+			for (var c = 0; c < cols; c++) {
+				var t = document.createElement('div');
+				t.className = 'pac-tile';
+				/* +1px so sub-pixel rounding never leaves a bright seam */
+				t.style.cssText = 'left:' + (c * cw) + 'px;top:' + (i * ch) +
+					'px;width:' + (cw + 1) + 'px;height:' + (ch + 1) + 'px';
+				frag.appendChild(t);
+				row.push(t);
+			}
+			grid.push(row);
+		}
+		ov.appendChild(frag);
+
+		var NS = 'http://www.w3.org/2000/svg';
+		var svg = document.createElementNS(NS, 'svg');
+		svg.setAttribute('id', 'pac-man');
+		svg.setAttribute('viewBox', '-50 -50 100 100');
+		svg.setAttribute('width', size);
+		svg.setAttribute('height', size);
+		var jaw = document.createElementNS(NS, 'path');
+		jaw.setAttribute('fill', '#ffdd33');
+		svg.appendChild(jaw);
+
+		document.body.appendChild(ov);
+		document.body.appendChild(svg);
+
+		/* Serpentine waypoints in document coordinates, entering from above. */
+		var xOf = function (c) { return left + c * cw + cw / 2; };
+		var yOf = function (i) { return top + i * ch + ch / 2; };
+		var pts = [{ x: xOf(0), y: top - size }];
+		for (var q = 0; q < rows; q++) {
+			var ltr = (q % 2 === 0);
+			pts.push({ x: xOf(ltr ? 0 : cols - 1), y: yOf(q) });
+			pts.push({ x: xOf(ltr ? cols - 1 : 0), y: yOf(q) });
+		}
+
+		var segs = [], total = 0;
+		for (var s = 1; s < pts.length; s++) {
+			var dx = pts[s].x - pts[s - 1].x, dy = pts[s].y - pts[s - 1].y;
+			var len = Math.sqrt(dx * dx + dy * dy);
+			segs.push({ a: pts[s - 1], b: pts[s], len: len, at: total,
+				ang: Math.round(Math.atan2(dy, dx) * 180 / Math.PI) });
+			total += len;
+		}
+
+		/* Distance at which each pellet is reached, in eating order: driving the
+		   reveal off distance guarantees the grid is clear by the last row. */
+		var order = [];
+		for (var g = 0; g < rows; g++) {
+			var seg = segs[g * 2 + 1];
+			for (var k = 0; k < cols; k++) {
+				order.push({ el: grid[g][(g % 2 === 0) ? k : cols - 1 - k], d: seg.at + k * cw });
+			}
+		}
+
+		var outRight = ((rows - 1) % 2 === 0);
+		var endX = pts[pts.length - 1].x, endY = pts[pts.length - 1].y;
+		var exit = (outRight ? Math.max(0, W0 - endX) : Math.max(0, endX)) + size + 24;
+		var TICK = 1000 / FPS, STEP = cw / STEPS_PER_PELLET;
+		var travelled = 0, tick = 0, lastTick = null;
+		var oi = 0, raf = 0, done = false;
+
+		/* One open-and-close per pellet, sampled only at tick boundaries so the
+		   jaw steps in lockstep with the movement instead of drifting. */
+		function chomp() {
+			var phase = (tick % STEPS_PER_PELLET) / STEPS_PER_PELLET;
+			var a = 0.06 + 0.42 * Math.abs(Math.cos(Math.PI * phase)), R = 46;
+			jaw.setAttribute('d', 'M0,0L' + (R * Math.cos(a)).toFixed(1) + ',' +
+				(R * Math.sin(a)).toFixed(1) + 'A' + R + ',' + R + ' 0 1 1 ' +
+				(R * Math.cos(-a)).toFixed(1) + ',' + (R * Math.sin(-a)).toFixed(1) + 'Z');
+		}
+		function place(x, y, ang) {
+			svg.style.transform = 'translate(' + (x - size / 2) + 'px,' + (y - size / 2) +
+				'px) rotate(' + ang + 'deg)';
+		}
+		function eatUpTo(d) {
+			while (oi < order.length && order[oi].d <= d) {
+				order[oi].el.className = 'pac-tile pac-eaten';
+				oi++;
+				beep();
+			}
+		}
+		function onKey(e) { if (e.key === 'Escape' || e.keyCode === 27) finish(); }
+		/* Only a real resize aborts: browsers fire resize on first layout, and
+		   mobile fires it when the URL bar collapses; neither should skip. */
+		function onResize() {
+			if (Math.abs(window.innerWidth - W0) > 80 ||
+				Math.abs(window.innerHeight - H0) > 80) finish();
+		}
+		function finish() {
+			if (done) return;
+			done = true;
+			if (raf) cancelAnimationFrame(raf);
+			window.removeEventListener('keydown', onKey, true);
+			window.removeEventListener('resize', onResize);
+			ov.className = 'pac-done';
+			svg.setAttribute('class', 'pac-done');
+			setTimeout(function () {
+				if (ov.parentNode) ov.parentNode.removeChild(ov);
+				if (svg.parentNode) svg.parentNode.removeChild(svg);
+				running = false;
+			}, FADE + 60);
+		}
+
+		function render() {
+			if (travelled < total) {
+				eatUpTo(travelled);
+				var cur = segs[0];
+				for (var j = 0; j < segs.length; j++) {
+					if (travelled >= segs[j].at) cur = segs[j]; else break;
+				}
+				var f = cur.len ? Math.min(1, (travelled - cur.at) / cur.len) : 1;
+				place(cur.a.x + (cur.b.x - cur.a.x) * f,
+					cur.a.y + (cur.b.y - cur.a.y) * f, cur.ang);
+				chomp();
+				return true;
+			}
+			eatUpTo(total);                       /* nothing left covered */
+			var out = Math.min(1, (travelled - total) / exit);
+			place(endX + (outRight ? 1 : -1) * exit * out, endY, outRight ? 0 : 180);
+			chomp();
+			return out < 1;
+		}
+
+		function frame(ts) {
+			/* Drive the fixed clock off rAF rather than a timer: it stays in step
+			   with the display and pauses with a hidden tab. The guard keeps a
+			   long stall (backgrounded tab) from replaying hundreds of ticks. */
+			if (lastTick === null) lastTick = ts - TICK;
+			var moved = false, guard = 0;
+			while (ts - lastTick >= TICK && guard++ < 4) {
+				lastTick += TICK;
+				travelled += STEP;
+				tick++;
+				moved = true;
+			}
+			if (ts - lastTick > TICK * 4) lastTick = ts;
+			if (moved && !render()) { finish(); return; }
+			raf = requestAnimationFrame(frame);
+		}
+
+		window.addEventListener('keydown', onKey, true);
+		window.addEventListener('resize', onResize);
+
+		place(pts[0].x, pts[0].y, 90);
+		chomp();
+		raf = requestAnimationFrame(frame);
+	}
+
+	boot();
+})();
+</script>
 <div id="header-wrap">
 	<div id="page">
 		<table id="header">
