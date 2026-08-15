@@ -85,6 +85,8 @@ The `--` and its surrounding `&nbsp;` belong **inside** `.member-name`, and ever
 
 **These two lists are the exception to the `<br></li><li>` separator rule** — they use a plain `</li><li>`. Because `.member` is a block-level flex box, a trailing `<br>` lands *after* that box and renders as a full blank line under every entry. Entry spacing here comes from `div.paragraph li { margin: 3px 0 0 }` instead, which reproduces the same rhythm as the other lists.
 
+They are also **the exception to the first-`<li>` `txt-normal` rule** — never wrap `.member` in a `<span class="txt-normal">`. A `<span>` is inline, so an inline element wrapping the block-level flex box is invalid HTML: WebKit splits the inline, leaving the bullet alone on its own line with the entry pushed below it, while Blink happens to tolerate it (so it will not show up in Chrome testing). `txt-normal` is a no-op in these lists anyway — `div.paragraph` already computes to the same 14px/21px. Every `<li>` in both lists must open with exactly `<li><span class="member">`.
+
 ## Commit conventions
 
 Single-purpose commits with an imperative summary naming the affected content, e.g. `Add 5 ICML 2026 papers, reorder publications: ICML before ACL`, `Update alumni positions: Tianyi Liu (Meta), Ethan Wang (Anthropic)`, `Fix news chronological order: Feb 2026 before Jan 2026`. Since a push goes live immediately, only commit or push when asked.
