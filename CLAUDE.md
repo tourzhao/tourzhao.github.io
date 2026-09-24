@@ -47,7 +47,7 @@ The IDs are load-bearing — the inline `onclick` and observer both look them up
 
 **The wrapper div sits *inside* the `<ul>`,** between a `</li>` and the next `<li>` (see `index.html:210`, `272`, `490`). This is invalid HTML that browsers tolerate, and it's what makes the collapse animate as one block. Preserve it; "fixing" the nesting breaks the layout.
 
-**`.collapsible-content.open` is capped at `max-height: 5000px`** (`index.html:33`). A CSS height transition can't animate to `auto`, hence the magic number. The Publications list has 72 hidden entries, each forced to at least 3 lines (title / authors / venue), which puts its expanded height in the neighborhood of the cap. If the bottom of an expanded section appears clipped, raise the cap rather than restructuring.
+**`.collapsible-content.open` is capped at `max-height: 12000px`** (`index.html:33`). A CSS height transition can't animate to `auto`, hence the magic number. The Publications list has 74 hidden entries, which expand to ~5200px at desktop width and ~8600px on a 390px phone (the old 5000px cap clipped both). If the bottom of an expanded section appears clipped, raise the cap rather than restructuring.
 
 ## Content conventions
 
@@ -67,7 +67,7 @@ News items lead with a bold date (`<strong><font color="#2a2a2a">Feb. 2026</font
 
 External links consistently carry `target="_blank" rel="noopener noreferrer"`.
 
-**Use straight ASCII quotes in HTML attributes.** Curly quotes (`href=”…”`) silently produce dead links — two such broken links currently exist in the news list at `index.html:188` and `index.html:190`. This is the most likely failure mode when pasting content from a document or chat.
+**Use straight ASCII quotes in HTML attributes.** Curly quotes (`href=”…”`) silently produce dead links (two news links once broke this way). This is the most likely failure mode when pasting content from a document or chat.
 
 ### Where to add new content
 
