@@ -100,7 +100,7 @@
  .landing-banner-outer { display: table; #position: relative; overflow: hidden; }
  .landing-banner-mid { #position: absolute; #top: 50%; display: table-cell; vertical-align: middle; }
  .landing-banner-inner { #position: relative; #top: -50%; }
- #bannerright { float: right; width: 366px; height: 330px; padding: 0 25px; margin-top: 15px; }
+ #bannerright { float: right; width: 366px; height: auto; min-height: 330px; padding: 0 25px; margin-top: 15px; }
 #bannerright h2 { color: #90cbf5; font-size: 32px; padding: 0px; line-height: 32px; }
 #bannerright div.paragraph { color: #868686; font-size: 1.1em; padding: 20px 0px; line-height: 140%; margin: 0; }
 #bannerright p { color: #868686; font-size: 1.1em; padding: 20px 0px; line-height: 140%; margin: 0; }
